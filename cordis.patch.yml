@@ -1,0 +1,15 @@
+# dsh-exa — route DSH's own web_search and web_fetch through Exa, then mount the
+# plugin that registers both providers and the six Exa tools.
+#
+# A row-targeted patch replaces the target row's whole config value rather than
+# merging keys, so both provider ids are restated here: leaving `fetchProvider`
+# out would drop back to "no configured fetch provider" and, with more than one
+# usable provider registered, web_fetch would fail as WEB_PROVIDER_AMBIGUOUS.
+- id: web
+  config:
+    searchProvider: exa
+    fetchProvider: exa
+
+- insert:
+    - id: web-exa
+      name: dsh-exa
